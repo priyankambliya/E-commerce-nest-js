@@ -2,7 +2,6 @@ import { Body, Controller, HttpCode, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AdminService } from './admin.service';
 import { User } from 'src/schemas/user.schema';
-import { AdminResponse } from 'DTO/AdminDTO/adminResponse.dto';
 import { ALL_STATUS_CODES } from '../static/AppString.static';
 
 @Controller('admin')

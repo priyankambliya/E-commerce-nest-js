@@ -17,9 +17,9 @@ async function generateAccessToken (payload:any) {
         adminRole:role
     }
     await redisClient.lpush(payload._id, JSON.stringify(data));
-    const dataList:any = await redisClient.lrange("1", 0, -1);
-    console.log({dataList})
-    const data1 = JSON.parse(dataList)
+    // <<<<<<<<<<<<<<<<<<<<<<  STORED DATA INSIDE REDIS DB  >>>>>>>>>>>>>>>>>>>>>>>>>>
+    // const dataList:any = await redisClient.lrange("1", 0, -1);
+    // console.log({dataList})
     return data
 }
 
