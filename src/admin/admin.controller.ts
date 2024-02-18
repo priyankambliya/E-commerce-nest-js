@@ -1,32 +1,32 @@
-import { Body, Controller, HttpCode, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AdminService } from './admin.service';
 import { User } from 'src/schemas/user.schema';
-import { AdminResponse } from 'DTO/AdminDTO/adminResponse.dto';
-import { ALL_STATUS_CODES } from '../static/AppString.static';
+import { prepareSuccessResponse } from 'utils/responseHandler';
 
 @Controller('admin')
 export class AdminController {
-  constructor(private readonly adminService: AdminService) {}
+  constructor(private readonly adminService: AdminService) { }
 
-  @Post()
-  @HttpCode(ALL_STATUS_CODES.SUCCESS_CODES.OK)
-  async loginAdmin(
-    @Req() request: Request,
-    @Body() user: User,
-    @Res() response: Response,
-  ) {
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  async loginAdmin(@Req() request: Request, @Body() user: User, @Res() response: Response) {
     try {
-      const serviceResponse = await this.adminService.loginAdmin(
-        request,
-        response,
-        user,
-      );
-      response.send(serviceResponse);
+      const serviceResponse = await this.adminService.loginAdmin(request, response, user);
+      return response.json(prepareSuccessResponse(serviceResponse, '관리자 로그인 성공'));
     } catch (error) {
-      response.status(ALL_STATUS_CODES.ERROR_CODES.NOT_ACCEPTABLE).send({
-        error: error,
-      });
+      response.status(HttpStatus.BAD_REQUEST).send({ error });
+    }
+  }
+
+  @Post('register')
+  @HttpCode(HttpStatus.OK)
+  async registerAdmin(@Req() request: Request, @Body() user: User, @Res() response: Response) {
+    try {
+      const data = await this.adminService.registerAdmin(request, response, user);
+      return response.send(prepareSuccessResponse(data, 'User registered Successfully.'));
+    } catch (error) {
+      response.status(HttpStatus.BAD_REQUEST).send({ error });
     }
   }
 }

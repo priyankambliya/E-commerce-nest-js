@@ -1,20 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema()
+@Schema({ timestamps: true })
 export class User extends Document {
-  @Prop({ 
+  @Prop({
     required: [true, 'nickName is required'],
-    trim: true, 
-    minlength: 3,  
-    maxlength: 50  
+    trim: true,
+    minlength: 3,
+    maxlength: 50
   })
   nickName: string;
 
-  @Prop({ 
+  @Prop({
     unique: <any>[true, 'Email must be unique'],
-    trim: true, 
-    lowercase: true, 
+    trim: true,
+    lowercase: true,
     required: [true, 'Email is required'],
     match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format']
   })
@@ -22,8 +22,8 @@ export class User extends Document {
 
   @Prop({
     required: [true, 'Password is required'],
-    minlength: 6 
-  }) 
+    minlength: 6
+  })
   password: string;
 }
 
