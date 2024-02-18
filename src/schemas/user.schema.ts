@@ -3,17 +3,13 @@ import { AdminRole } from 'DTO/AdminDTO/adminTypes';
 import { Document } from 'mongoose';
 import { model } from 'mongoose';
 
-export type UserDocument = User & Document;
-
-@Schema({
-  timestamps: true,
-})
+@Schema({ timestamps: true })
 export class User extends Document {
   @Prop({
     required: [true, 'nickName is required'],
     trim: true,
     minlength: 3,
-    maxlength: 50,
+    maxlength: 50
   })
   nickName: string;
 
@@ -28,7 +24,7 @@ export class User extends Document {
 
   @Prop({
     required: [true, 'Password is required'],
-    minlength: 6,
+    minlength: 6
   })
   password: string;
 

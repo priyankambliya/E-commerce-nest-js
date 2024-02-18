@@ -7,12 +7,12 @@ import { AdminModule } from './admin/admin.module';
 import { GlobalModuleModule } from './global-module/global-module.module';
 import AdminSeeder from './seeder/adminSeeder';
 
-const config = require('config');
+// const config = require( 'config' )
 
 @Module({
   imports: [
-    MongooseModule.forRoot(config.get('LOCAL_DB_CONN_STRING')),
-    // MongooseModule.forRoot(config.get('DB_CONN_STRING')),
+    // MongooseModule.forRoot(config.get('LOCAL_DB_CONN_STRING'))
+    MongooseModule.forRoot('mongodb+srv://priyankambliya:QdppldWdqgoohWqk@e-commerce-nestjs.onhrm6m.mongodb.net/E-commerce'),
     UserModule,
     AdminModule,
     GlobalModuleModule,
@@ -20,4 +20,4 @@ const config = require('config');
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
