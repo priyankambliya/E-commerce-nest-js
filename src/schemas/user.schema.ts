@@ -25,6 +25,19 @@ export class User extends Document {
     minlength: 6
   })
   password: string;
+
+  @Prop({
+    type: String,
+    enum: ['admin', 'user'],
+    default: 'user',
+    validate: {
+      validator: function (v) {
+        return this.role !== 'admin' || this.constructor.countDocuments({ role: 'admin' }).exec().then(count => count < 2);
+      },
+      message: 'Only two admin users are allowed.'
+    }
+  })
+  role: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
