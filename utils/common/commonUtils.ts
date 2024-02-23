@@ -2,7 +2,7 @@ const fs = require('fs')
 
 // FUNCTION FOR HANDLE ERROR:
 export const throwError = (response: any, message: string, statusCode?: number) => {
-    return response.status(statusCode).send({ message })
+    return response.status(statusCode || 422).send({ message })
 }
 
 // FUNCTION FOR CREATE DIRECTORY:
