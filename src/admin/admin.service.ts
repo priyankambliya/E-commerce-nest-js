@@ -1,9 +1,10 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import AdminServices from '../../services/adminService.helper'
+import Helper from '../../services/helper'
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/schemas/user.schema';
 import { throwError } from 'utils/common/commonUtils';
+import { JwtAccessTokenRoles } from 'src/static/enums';
 
 @Injectable()
 export class AdminService {
@@ -12,11 +13,9 @@ export class AdminService {
 
   // LOGIN USER //
   async loginAdmin(request: any, response: any, user: any) {
-    if (!user) {
-      return response.status(401).send({ message: "Auth failed" })
-    }
-    const data = await AdminServices.generateAccessToken(user)
-
+    const isExist = await this.userModel.findOne({ email: user.email })
+    if (!isExist) return throwError(response, "Email or password is incorrect", HttpStatus.BAD_REQUEST);
+    const data = await Helper.generateAccessToken({ _id: isExist._id, role: 'admin', name: JwtAccessTokenRoles.Admin })
     return data
   }
 

@@ -31,4 +31,9 @@ export class ProductService {
         const { name, description } = payload
         return await this.productModel.findByIdAndUpdate(id, { name, description }, { new: true }).select("-createdAt -updatedAt -__v")
     }
+
+    // delete product By Id
+    async deleteProductById(id: string) {
+        return await this.productModel.findByIdAndDelete(id).select("-createdAt -updatedAt -__v")
+    }
 }

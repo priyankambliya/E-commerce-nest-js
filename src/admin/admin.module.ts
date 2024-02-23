@@ -3,7 +3,7 @@ import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from 'src/schemas/user.schema';
-import { ProductModule } from './product/product.module';
+import { ProductModule } from '../product/product.module';
 
 @Module({
   imports: [
