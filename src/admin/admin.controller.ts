@@ -13,7 +13,7 @@ export class AdminController {
   async loginAdmin(@Req() request: Request, @Body() user: User, @Res() response: Response) {
     try {
       const serviceResponse = await this.adminService.loginAdmin(request, response, user);
-      return response.json(prepareSuccessResponse(serviceResponse, '관리자 로그인 성공'));
+      return response.send(prepareSuccessResponse(serviceResponse, '관리자 로그인 성공'));
     } catch (error) {
       response.status(HttpStatus.BAD_REQUEST).send({ error });
     }
@@ -24,7 +24,7 @@ export class AdminController {
   async registerAdmin(@Req() request: Request, @Body() user: User, @Res() response: Response) {
     try {
       const data = await this.adminService.registerAdmin(request, response, user);
-      return response.send(prepareSuccessResponse(data, 'User registered Successfully.'));
+      return response.send(prepareSuccessResponse(data, 'Admin registered Successfully.'));
     } catch (error) {
       response.status(HttpStatus.BAD_REQUEST).send({ error });
     }

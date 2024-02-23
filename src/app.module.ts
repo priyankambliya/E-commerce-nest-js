@@ -4,20 +4,20 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { AdminModule } from './admin/admin.module';
-import { GlobalModuleModule } from './global-module/global-module.module';
-import AdminSeeder from './seeder/adminSeeder';
+import { Seeders } from "seeders/seed";
+import { UserSchema } from "./schemas/user.schema";
 
-// const config = require( 'config' )
+const config = require('config')
 
 @Module({
   imports: [
-    // MongooseModule.forRoot(config.get('LOCAL_DB_CONN_STRING'))
-    MongooseModule.forRoot('mongodb+srv://priyankambliya:QdppldWdqgoohWqk@e-commerce-nestjs.onhrm6m.mongodb.net/E-commerce'),
+    // MongooseModule.forRoot('mongodb+srv://priyankambliya:QdppldWdqgoohWqk@e-commerce-nestjs.onhrm6m.mongodb.net/E-commerce'),
+    MongooseModule.forRoot(config.get('DB_CONN_LONG_STRING')),
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     UserModule,
     AdminModule,
-    GlobalModuleModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, Seeders],
 })
 export class AppModule { }

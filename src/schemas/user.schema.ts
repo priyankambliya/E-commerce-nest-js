@@ -29,10 +29,18 @@ export class User extends Document {
   password: string;
 
   @Prop({
-    default: AdminRole.SUPER_ADMIN,
+    type: String,
+    enum: ['admin', 'user'],
+    default: 'user',
+    validate: {
+      validator: function (v) {
+        return this.role !== 'admin' || this.constructor.countDocuments({ role: 'admin' }).exec().then(count => count < 2);
+      },
+      message: 'Only two admin users are allowed.'
+    }
   })
-  role: AdminRole;
+  role: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-export const USER = model<UserDocument>('User', UserSchema);
+export const USER = model<User>('User', UserSchema);

@@ -3,14 +3,14 @@ import * as Jwt from 'jsonwebtoken';
 
 const config = require('config')
 
-async function generateAdminAccessToken({ adminId, role }) {
-    const accessToken = await Jwt.sign({ adminId, role }, config.get("JWT_ACCESS_SECRET"), { expiresIn: config.get("JWT_ACCESS_TIME") })
+async function generateAdminAccessToken({ adminId }) {
+    const accessToken = await Jwt.sign({ adminId, role: 'admin' }, config.get("JWT_ACCESS_SECRET"), { expiresIn: config.get("JWT_ACCESS_TIME") })
     return accessToken;
 }
 
 async function generateAccessToken(payload: any) {
     const { _id, role } = payload;
-    const accessToken = await generateAdminAccessToken({ adminId: _id, role })
+    const accessToken = await generateAdminAccessToken({ adminId: _id })
     const data = {
         accessToken: accessToken,
         adminId: _id,
