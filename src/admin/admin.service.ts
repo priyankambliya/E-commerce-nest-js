@@ -20,16 +20,16 @@ export class AdminService {
     return data
   }
 
-  // REGISTER USER //
-  async registerAdmin(request: any, response: any, user: any) {
-    const { nickName, email, password } = user
-    if (!user) {
-      return response.status(401).send({ message: "User Not found." })
-    }
+  // // REGISTER USER //
+  // async registerAdmin(request: any, response: any, user: any) {
+  //   const { nickName, email, password } = user
+  //   if (!user) {
+  //     return response.status(401).send({ message: "User Not found." })
+  //   }
 
-    const userByEmail = await this.userModel.findOne({ email: user.email })
-    if (userByEmail) throwError(response, 'user already exist with this email.', HttpStatus.CONFLICT)
-    const newUser = await this.userModel.create({ nickName, email, password })
-    return newUser
-  }
+  //   const userByEmail = await this.userModel.findOne({ email: user.email })
+  //   if (userByEmail) throwError(response, 'user already exist with this email.', HttpStatus.CONFLICT)
+  //   const newUser = await this.userModel.create({ nickName, email, password })
+  //   return newUser
+  // }
 }

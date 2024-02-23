@@ -19,14 +19,14 @@ export class AdminController {
     }
   }
 
-  @Post('register')
-  @HttpCode(HttpStatus.OK)
-  async registerAdmin(@Req() request: Request, @Body() user: User, @Res() response: Response) {
-    try {
-      const data = await this.adminService.registerAdmin(request, response, user);
-      return response.send(prepareSuccessResponse(data, 'Admin registered Successfully.'));
-    } catch (error) {
-      response.status(HttpStatus.BAD_REQUEST).send({ error });
-    }
-  }
+  // @Post('register')
+  // @HttpCode(HttpStatus.OK)
+  // async registerAdmin(@Req() request: Request, @Body() user: User, @Res() response: Response) {
+  //   try {
+  //     const data = await this.adminService.registerAdmin(request, response, user);
+  //     return response.send(prepareSuccessResponse(data, 'Admin registered Successfully.'));
+  //   } catch (error) {
+  //     response.status(HttpStatus.BAD_REQUEST).send({ error });
+  //   }
+  // }
 }
